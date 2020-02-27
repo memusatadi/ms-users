@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:dbusers
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    org: INFO
+    org.hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+          sql:
+            BasicBinder: TRACE
+            
+message: 
+  userExists: Usuario ya existe
