@@ -14,6 +14,8 @@ import com.task.ms.users.dto.UserDto;
 import com.task.ms.users.dto.UserResponseDto;
 import com.task.ms.users.service.UsersService;
 
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Controller : Endpoint de creación de usuarios. 
  * @param: UserDto
@@ -27,6 +29,7 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 
+	@ApiOperation("Registra un nuevo usuario")
 	@PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public UserResponseDto addUser(@RequestBody @Valid UserDto user) {
@@ -34,6 +37,7 @@ public class UsersController {
 
 	}
 	
+	@ApiOperation("Busca un usuario por e-mail")
 	@GetMapping(value = "/users/{email:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UserResponseDto getUser(@PathVariable("email") String email) {
 		return usersService.getUser(email);

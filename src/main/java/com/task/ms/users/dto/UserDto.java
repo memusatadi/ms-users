@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,14 +38,18 @@ public class UserDto {
 	private static final String LEN = ".{8,16}";
 	
 	@NonNull
+	@ApiModelProperty(value = "Nombre usuario", example = "Juan Rodriguez")
 	private String name;
 	
 	@NonNull
+	@ApiModelProperty(value = "E-mail del usuario", example = "juan@rodriguez.org")
 	@Email(message = "El e-mail debe ser válido.")
 	private String email;
 	
 	@NonNull
-	@Pattern(regexp = UPPER + LOWER + NUM + LEN)
+	@Pattern(regexp = UPPER + LOWER + NUM + LEN, 
+			message = "Contraseña invalida. Debe conformarse por minúsculas,"
+			+ " una mayúscula y dos dígitos.")
 	private String password;
 	
 	private List<PhoneDto> phones;

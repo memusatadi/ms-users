@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.task.ms.users.dto.PhoneDto;
 import com.task.ms.users.dto.UserDto;
 import com.task.ms.users.dto.UserResponseDto;
@@ -89,7 +88,11 @@ public class UsersServiceImpl implements UsersService {
 	public UserResponseDto getUser(String email) {
 		
 		UserModel userModel = usersRepository.findUserByEmail(email);
-			
+		
+		if (userModel == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe usuario para el e-mail indicado");
+		}
+		
 		UserResponseDto userResponse = UserResponseDto.builder()
 				.user(buildUserDto(userModel))
 				.id(UUID.fromString(userModel.getUserId()))
@@ -100,7 +103,6 @@ public class UsersServiceImpl implements UsersService {
 				.active(userModel.isActive())
 				.build();
 		
-				
 		return userResponse;
 	}
 
